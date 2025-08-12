@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recorder Test</title>
+</head>
+
+<body>
+    <h1>Recorder Test</h1>
+    <div id="status"></div>
+
+    <script>
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML += message + '<br>';
+        }
+
+        updateStatus('開始載入腳本...');
+
+        // 測試載入 recorder.wav.min.js
+        var script1 = document.createElement('script');
+        script1.src = 'recorder.wav.min.js';
+        script1.onload = function () {
+            updateStatus('✓ recorder.wav.min.js 載入成功');
+            if (typeof Recorder !== 'undefined') {
+                updateStatus('✓ Recorder 物件可用');
+            } else {
+                updateStatus('✗ Recorder 物件不可用');
+            }
+        };
+        script1.onerror = function () {
+            updateStatus('✗ recorder.wav.min.js 載入失敗');
+        };
+        document.head.appendChild(script1);
+
+        // 測試載入 recorder.mp3.min.js
+        setTimeout(function () {
+            var script2 = document.createElement('script');
+            script2.src = 'recorder.mp3.min.js';
+            script2.onload = function () {
+                updateStatus('✓ recorder.mp3.min.js 載入成功');
+                if (typeof Recorder !== 'undefined' && Recorder.lamejs) {
+                    updateStatus('✓ MP3 編碼器可用');
+                } else {
+                    updateStatus('✗ MP3 編碼器不可用');
+                }
+            };
+            script2.onerror = function () {
+                updateStatus('✗ recorder.mp3.min.js 載入失敗');
+            };
+            document.head.appendChild(script2);
+        }, 1000);
+    </script>
+</body>
+
+</html>

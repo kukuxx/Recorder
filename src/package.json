@@ -5,6 +5,6 @@
     "start": "node package-build.js"
   },
   "dependencies": {
-    "uglify-js": "3.3.16"
+    "terser": "^5.0.0"
   }
 }
